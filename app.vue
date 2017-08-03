@@ -8,7 +8,8 @@
 		      type="email"               
 		      name="userEmail"  
 		      :class= "classObject.email" 
-		      v-model= "fields.userEmail.value"      
+		      v-model= "fields.userEmail.value" 
+
 		    >
 		    <small v-if="errors(this.classObject.email)">                           
 		      {{this.notices.mail}}
@@ -37,14 +38,25 @@
 		    Отправить
 		  </button>
 
+
+		  <button @click="checkProps"> check props </button>
+
+		                <p> {{message}} </p>
+		    <!-- <p v-for="item in list"> {{item}} </p> -->
+		  
+
 		</form>
 </template>
 
 <script>
-module.exports = {                    
+module.exports = {  
+  props: ['fields2'],                  
   data () {
     return {
     
+    	list: ['hello'],
+    	message: '',
+
     	fields: {
 			  userEmail: {
 			    label: 'E-mail',
@@ -79,6 +91,26 @@ module.exports = {
   },
 
  methods: {	
+
+ 	checkProps() {
+
+ 		this.message = "hy bro"
+ 		 // alert(this.fields2);
+ 		 // alert(typeof(this.fields2));
+
+ 	// 	var tags = this.fields2;
+ 	// //	alert(tags);
+ 	// 	var re = /\s*,\s*/;
+ 	//  //this.list = tags.split(re);
+ 	//  	var newList = tags.split(re);
+ 	//  //this.list.$set(newList);
+ 	//   //this.list.push('buy');
+ 	//   //Vue.set(list, 5, 'new');
+ 	//   this.list.splice(3,1,'new');
+ 	//  alert(this.list);
+
+ 	},
+
  	errors: function(obj) {               //проверяет наличие полей со значением true в объекте
  		for (var key in obj) {
          	if (obj[key] == true) return true;
@@ -130,17 +162,7 @@ module.exports = {
 </script>
 
 <style>
-	 .danger {
-	 	background-color: red;
-	 }
 
-	 .warning {
-	 	background-color: orange;
-	 }
-
-	 .success {
-	 	background-color: blue;
-	 }
 </style>
 
 

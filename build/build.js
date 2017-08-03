@@ -185,7 +185,6 @@ process.chdir = function (dir) {
 process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".danger {\n \tbackground-color: red;\n }\n\n .warning {\n \tbackground-color: orange;\n }\n\n .success {\n \tbackground-color: blue;\n }")
 ;(function(){
 //
 //
@@ -231,16 +230,26 @@ var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".danger 
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
-module.exports = {                    
+module.exports = {  
+  props: ['fields2'],                  
   data () {
     return {
     
+    	list: ['hello'],
+    	message: '',
+
     	fields: {
 			  userEmail: {
 			    label: 'E-mail',
 			    fieldType: 'email',
-			    type: String,               //type учитывается при вводе введь в инпуте?
+			    type: String,               
 			    value: '',                  
 			    validation: (value) => {
 			      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -270,16 +279,36 @@ module.exports = {
   },
 
  methods: {	
- 	errors: function(obj) {               
+
+ 	checkProps() {
+
+ 		this.message = "hy bro"
+ 		 // alert(this.fields2);
+ 		 // alert(typeof(this.fields2));
+
+ 	// 	var tags = this.fields2;
+ 	// //	alert(tags);
+ 	// 	var re = /\s*,\s*/;
+ 	//  //this.list = tags.split(re);
+ 	//  	var newList = tags.split(re);
+ 	//  //this.list.$set(newList);
+ 	//   //this.list.push('buy');
+ 	//   //Vue.set(list, 5, 'new');
+ 	//   this.list.splice(3,1,'new');
+ 	//  alert(this.list);
+
+ 	},
+
+ 	errors: function(obj) {               //проверяет наличие полей со значением true в объекте
  		for (var key in obj) {
          	if (obj[key] == true) return true;
         }
  	},
  },
 
- computed: {  
-  	classObject: function() {  
-  		var result = {};
+ computed: {                   
+  	classObject: function() {            //выч.св-во, возвращающее объект, хранящий классы для input-ов
+  		var result = {}
 
   		if (this.fields.userEmail.required) {
 	  		result.email = {
@@ -299,7 +328,7 @@ module.exports = {
   		return result
   	},
 
-    notices: function() {        
+    notices: function() {        //возвращает объект для вывода предупреждений
     	var result = {};
     	for (var key in this.classObject.email) {           
 		  if (this.classObject.email[key] == true) {result.mail = this.fields.userEmail.notice[key]}
@@ -311,7 +340,7 @@ module.exports = {
 		return result; 			
     },
 
- 	isDisabled: function() { 
+ 	isDisabled: function() {              //св-во, отвечающее за активность кнопки "подтвердить"
 	   	for (var key in this.fields) {           
 			   if (this.fields[key].required && !this.fields[key].validation(this.fields[key].value)) return true	  
 	    }
@@ -323,7 +352,156 @@ module.exports = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',[_c('fieldset',[_c('label',[_vm._v("\n      "+_vm._s(_vm.fields.userEmail.label)+"               ")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.fields.userEmail.value),expression:"fields.userEmail.value"}],class:_vm.classObject.email,attrs:{"type":"email","name":"userEmail"},domProps:{"value":(_vm.fields.userEmail.value)},on:{"input":function($event){if($event.target.composing){ return; }_vm.fields.userEmail.value=$event.target.value}}}),_vm._v(" "),(_vm.errors(this.classObject.email))?_c('small',[_vm._v("                           \n      "+_vm._s(this.notices.mail)+"\n    ")]):_vm._e()]),_vm._v(" "),_c('fieldset',[_c('label',[_vm._v("\n      "+_vm._s(_vm.fields.userPassword.label)+"\n    ")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.fields.userPassword.value),expression:"fields.userPassword.value"}],class:_vm.classObject.password,attrs:{"type":"password","name":"userPassword"},domProps:{"value":(_vm.fields.userPassword.value)},on:{"input":function($event){if($event.target.composing){ return; }_vm.fields.userPassword.value=$event.target.value}}}),_vm._v(" "),(_vm.errors(this.classObject.password))?_c('small',[_vm._v("   \n    \t"+_vm._s(this.notices.password)+"                        \n    ")]):_vm._e()]),_vm._v(" "),_c('button',{attrs:{"type":"submit","disabled":_vm.isDisabled}},[_vm._v("\n    Отправить\n  ")]),_vm._v(" "),_c('button',{on:{"click":_vm.isDisabled}},[_vm._v(" disabled ")])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',[_c('fieldset',[_c('label',[_vm._v("\n      "+_vm._s(_vm.fields.userEmail.label)+"               ")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.fields.userEmail.value),expression:"fields.userEmail.value"}],class:_vm.classObject.email,attrs:{"type":"email","name":"userEmail"},domProps:{"value":(_vm.fields.userEmail.value)},on:{"input":function($event){if($event.target.composing){ return; }_vm.fields.userEmail.value=$event.target.value}}}),_vm._v(" "),(_vm.errors(this.classObject.email))?_c('small',[_vm._v("                           \n      "+_vm._s(this.notices.mail)+"\n    ")]):_vm._e()]),_vm._v(" "),_c('fieldset',[_c('label',[_vm._v("\n      "+_vm._s(_vm.fields.userPassword.label)+"\n    ")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.fields.userPassword.value),expression:"fields.userPassword.value"}],class:_vm.classObject.password,attrs:{"type":"password","name":"userPassword"},domProps:{"value":(_vm.fields.userPassword.value)},on:{"input":function($event){if($event.target.composing){ return; }_vm.fields.userPassword.value=$event.target.value}}}),_vm._v(" "),(_vm.errors(this.classObject.password))?_c('small',[_vm._v("   \n    \t"+_vm._s(this.notices.password)+"                        \n    ")]):_vm._e()]),_vm._v(" "),_c('button',{attrs:{"type":"submit","disabled":_vm.isDisabled}},[_vm._v("\n    Отправить\n  ")]),_vm._v(" "),_c('button',{on:{"click":_vm.checkProps}},[_vm._v(" check props ")]),_vm._v(" "),_c('p',[_vm._v(" "+_vm._s(_vm.message)+" ")])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0b8c3dfa", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-0b8c3dfa", __vue__options__)
+  }
+})()}
+},{"vue":7,"vue-hot-reload-api":5}],3:[function(require,module,exports){
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".danger {\n \tborder: 2px solid red;\n }\n\n .warning {\n \tborder: 2px solid orange;\n }\n\n .success {\n \tbackground-color: blue;\n }")
+;(function(){
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+													//добавить стрелочные функции?
+module.exports = {  
+  props: ['myFields'],                  
+  data () {                
+    return {
+    	gS: '',
+    	fields: [
+				    {   
+				    	name: 'userEmail',             
+					    label: 'E-mail',
+					    fieldType: 'email',
+					    type: String,               
+					    value: '', 
+					    validation: (value) => {
+					    	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+					    	return re.test(value)
+					    },
+					    required: true,
+					    notice: {
+					      warning: 'Поле не может быть пустым.',
+					      danger: 'Проверьте правильность введенного адреса.'
+					    }                
+				    },
+				    {
+					   	name: 'userPassword',
+					    label: 'Пароль',
+					    fieldType: 'password',
+					    type: String,
+					    value: '',	
+					    validation: (value) => {
+					    	return value.length > 5
+						},
+					    required: true,
+					    notice: {
+					      warning: 'Поле не может быть пустым.',
+					      danger: 'Поле не может содержать менее 6 символов.'
+					    }			
+					},
+					{
+		    		 	name: 'userPhone',
+		    		  	label: "Phone",
+		    		  	fieldType: 'phone',
+		    		  	type: Number,            
+		    		  	value: '',					
+		    		  	validation: (value) => {
+					    	return value.length > 3
+						},
+		    		  	required: false,
+		    		  	notice: {
+		    		  		danger: 'Не похоже на телефон'
+		    		  	}
+	    		  	},
+		]  
+	}   
+  },
+ 
+  methods: {	       //экономно ли так делать? Computed не принимает параметр(
+  						//для этой логики getStatus будет онли для подсказок.
+  	getStatus(field) {
+
+  		if (field.required) {
+	  		if (!field.value) {return field.notice.warning}
+	  			else if (!field.validation(field.value)) {return field.notice.danger}
+  		}
+  			else if (field.validation && field.notice.danger && field.value && !field.validation(field.value)) {
+  				return field.notice.danger
+  			}
+  				    //если что-то ввели, то либо правильно вводи, либо обнуляй
+  	}
+  },
+
+  computed: {
+  	isDisabled () {              
+	   	for (var key in this.fields) { 
+	   		var v=this.fields[key];        
+			if (v.required && !v.validation(v.value)) {return true}
+			   	else if (!v.required && v.value && !v.validation(v.value)) {return true}	  
+	    }
+	}
+  }
+
+}
+
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{attrs:{"id":"form"}},[_vm._l((_vm.fields),function(field){return (_vm.myFields.indexOf(field.fieldType) != -1)?_c('fieldset',[_c('label',[_vm._v(" "+_vm._s(field.label)+" ")]),_vm._v(" "),(field.fieldType == 'email')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(field.value),expression:"field.value"}],class:{ warning: (field.required && !field.value.length), danger: (field.required && !field.validation(field.value)) },attrs:{"name":field.name,"type":"email"},domProps:{"value":(field.value)},on:{"input":function($event){if($event.target.composing){ return; }field.value=$event.target.value}}}):(field.fieldType == 'password')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(field.value),expression:"field.value"}],class:{warning: (field.required && !field.value.length), danger: (field.required && !field.validation(field.value))},attrs:{"name":field.name,"type":"password"},domProps:{"value":(field.value)},on:{"input":function($event){if($event.target.composing){ return; }field.value=$event.target.value}}}):(field.fieldType == 'phone')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(field.value),expression:"field.value"}],attrs:{"name":field.name,"type":"number"},domProps:{"value":(field.value)},on:{"input":function($event){if($event.target.composing){ return; }field.value=$event.target.value}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(field.value),expression:"field.value"}],attrs:{"name":field.name,"type":"text"},domProps:{"value":(field.value)},on:{"input":function($event){if($event.target.composing){ return; }field.value=$event.target.value}}}),_vm._v(" "),(_vm.getStatus(field))?_c('small',[_vm._v("                           \n\t       "+_vm._s(_vm.getStatus(field))+"\n\t    ")]):_vm._e()]):_vm._e()}),_vm._v(" "),_c('button',{attrs:{"type":"submit","disabled":_vm.isDisabled}},[_vm._v("\n\t    Отправить\n\t  ")])],2)}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -331,26 +509,24 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0b8c3dfa", __vue__options__)
+    hotAPI.createRecord("data-v-4d19e8bf", __vue__options__)
   } else {
-    hotAPI.reload("data-v-0b8c3dfa", __vue__options__)
+    hotAPI.reload("data-v-4d19e8bf", __vue__options__)
   }
 })()}
-},{"vue":6,"vue-hot-reload-api":4,"vueify/lib/insert-css":7}],3:[function(require,module,exports){
-
+},{"vue":7,"vue-hot-reload-api":5,"vueify/lib/insert-css":8}],4:[function(require,module,exports){
 var Vue = require('./node_modules/vue/dist/vue.js');
-//var Vue = require('vue');
 var App = require('./app.vue');
 
 Vue.component('my-app', require('./app.vue'));
-
+Vue.component('my-app2', require('./app2.vue'));
 
 new Vue({
   el: '#app',
   data: {
   }
 })
-},{"./app.vue":2,"./node_modules/vue/dist/vue.js":5}],4:[function(require,module,exports){
+},{"./app.vue":2,"./app2.vue":3,"./node_modules/vue/dist/vue.js":6}],5:[function(require,module,exports){
 var Vue // late bind
 var version
 var map = window.__VUE_HOT_MAP__ = Object.create(null)
@@ -496,7 +672,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function (global){
 /*!
  * Vue.js v2.4.1
@@ -10557,7 +10733,7 @@ return Vue$3;
 })));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.4.1
@@ -17969,7 +18145,7 @@ setTimeout(function () {
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":1}],7:[function(require,module,exports){
+},{"_process":1}],8:[function(require,module,exports){
 var inserted = exports.cache = {}
 
 function noop () {}
@@ -17994,4 +18170,4 @@ exports.insert = function (css) {
   }
 }
 
-},{}]},{},[3]);
+},{}]},{},[4]);
